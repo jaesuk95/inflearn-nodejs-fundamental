@@ -3,3 +3,5 @@ npm install express
 npm install cors helmet dayjs
 npm install -D nodemon
 npm install bcrypt jsonwebtoken
+
+npm install swagger-ui-express

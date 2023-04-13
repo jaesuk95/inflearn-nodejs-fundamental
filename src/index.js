@@ -1,8 +1,10 @@
-import express from 'express';
-import cors from 'cors';
-import helmet from "helmet";
-import {Router} from "express";
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
+
 import Controllers from "./controllers"
+import {swaggerDoc,options} from "./swagger";
+const swaggerUi = require('swagger-ui-express');
 
 const app = express();
 let port = 8000;
@@ -23,18 +25,27 @@ app.use(helmet());  // 보안 강화
 // app.use("/users", UserController.router);
 
 // controllers
-Controllers.forEach((controller) => {
-    app.use(controller.path, controller.router);
-});
+// Controllers.forEach((controller) => {
+//     app.use(controller.path, controller.router);
+// });
 
+app.get("/swagger.json", (req, res) => {
+    res.status(200).json(swaggerDoc);
+});
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(undefined, options));
+
+
+
+app.get("/", (req,res)=>{
+    res.send("NodeJS 강의 시작")
+})
+
+
+// error handling
 app.use((err,req,res,next)=>{
     res
         .status(err.status || 500)
         .json({message: err.message || "ExternalMessage 서버 에러"})
-})
-
-app.get("/", (req,res)=>{
-    res.send("NodeJS 강의 시작")
 })
 
 app.listen(port, ()=>{
