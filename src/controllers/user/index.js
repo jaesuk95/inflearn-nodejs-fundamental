@@ -30,25 +30,43 @@ class UserController {
         this.router.post('/', this.createUser.bind(this));
     }
 
-    getUsers(req,res) {
-        res.status(200).json({users: this.users})
+    getUsers(req,res,next) {
+        try {
+            res.status(200).json({users: this.users})
+        } catch (e) {
+            next(e);
+        }
     }
 
-    getUser(req,res) {
-        const {id} = req.params;
-        const user = this.users.find((user) => user.id === Number(id));
-        res.status(200).json({users: user});
+    getUser(req,res,next) {
+        try {
+            const {id} = req.params;
+            const user = this.users.find((user) => user.id === Number(id));
+
+            if (!user) {
+                throw {status: 404, message: "non user"}
+            }
+
+            res.status(200).json({users: user});
+        } catch (e) {
+            next(e);
+        }
     }
 
-    createUser(req,res) {
-        const {name,age} = req.body;
-        this.users.push({
-            id: new Date().getTime(),
-            name: name,
-            age: age
-        })
-        res.status(201).json({users: this.users});
+    createUser(req,res,next) {
+        try {
+            const {name,age} = req.body;
+            this.users.push({
+                id: new Date().getTime(),
+                name: name,
+                age: age
+            })
+            res.status(201).json({users: this.users});
+        } catch (e) {
+            next(e);
+        }
     }
+
 }
 
 const userController = new UserController();

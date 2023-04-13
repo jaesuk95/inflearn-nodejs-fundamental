@@ -27,6 +27,11 @@ Controllers.forEach((controller) => {
     app.use(controller.path, controller.router);
 });
 
+app.use((err,req,res,next)=>{
+    res
+        .status(err.status || 500)
+        .json({message: err.message || "ExternalMessage 서버 에러"})
+})
 
 app.get("/", (req,res)=>{
     res.send("NodeJS 강의 시작")
