@@ -2,12 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import helmet from "helmet";
 import {Router} from "express";
-import UserController from "./user"
+import Controllers from "./controllers"
 
 const app = express();
 let port = 8000;
-
-const UserRouter = Router();
 
 // application level 미들웨어 작성
 app.use(express.urlencoded({
@@ -21,8 +19,13 @@ app.use(cors({
 }));
 app.use(helmet());  // 보안 강화
 
-// userController created by Router
-app.use("/users", UserController.router);
+// userController created by Router 방식 1
+// app.use("/users", UserController.router);
+
+// controllers
+Controllers.forEach((controller) => {
+    app.use(controller.path, controller.router);
+});
 
 
 app.get("/", (req,res)=>{
