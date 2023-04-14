@@ -5,9 +5,11 @@ const helmet = require("helmet");
 import Controllers from "./controllers"
 import {swaggerDoc,options} from "./swagger";
 const swaggerUi = require('swagger-ui-express');
+const dotenv = require('dotenv')
+const config = dotenv.config();
 
 const app = express();
-let port = 8000;
+const port = process.env.PORT;
 
 // application level 미들웨어 작성
 app.use(express.urlencoded({

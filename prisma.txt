@@ -1,0 +1,13 @@
+Prisma Migrate Dev is a command used for database schema migrations.
+It allows developers to make changes to their database schema and
+generate migration scripts that can be executed to update the
+database schema. This command creates a development environment
+that automatically watches for changes in the Prisma schema file
+and applies the necessary migrations when changes are detected.
+
+Prisma Generate is a command used to generate Prisma client code.
+This command reads the Prisma schema file and generates TypeScript
+code that can be used to interact with the database. This generated
+code includes functions to create, read, update, and delete data
+from the database. By running this command, developers can generate
+updated code whenever changes are made to the Prisma schema file.
