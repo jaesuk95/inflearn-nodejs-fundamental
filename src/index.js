@@ -25,9 +25,9 @@ app.use(helmet());  // 보안 강화
 // app.use("/users", UserController.router);
 
 // controllers
-// Controllers.forEach((controller) => {
-//     app.use(controller.path, controller.router);
-// });
+Controllers.forEach((controller) => {
+    app.use(controller.path, controller.router);
+});
 
 app.get("/swagger.json", (req, res) => {
     res.status(200).json(swaggerDoc);
